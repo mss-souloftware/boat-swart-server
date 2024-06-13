@@ -1,0 +1,155 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Admins {
+  id String [pk]
+  fullName String [not null]
+  username String [unique, not null]
+  password String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Captains {
+  id String [pk]
+  fullName String [not null]
+  phone String [not null]
+  email String [unique, not null]
+  password String [not null]
+  city String [not null]
+  country String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  Boat Boats [not null]
+}
+
+Table Boats {
+  id String [pk]
+  name String [not null]
+  number String [not null]
+  category BOAT_CATEGORY [not null]
+  captainId String
+  currentLocation String [not null]
+  nextLocation String [not null]
+  operationType String [not null]
+  arrivalTime DateTime [not null]
+  departureTime DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  Captain Captains
+  OBM OBM
+  Cement Cement
+  BlendedCement BlendedCement
+  Safra Safra
+  FreshWater FreshWater
+  WBM WBM
+  Brine Brine
+  Diesel Diesel
+}
+
+Table OBM {
+  id String [pk]
+  boatId String [unique, not null]
+  opearionType String
+  manifested Boolean
+  quantitySupplied Int
+  remainingQuantity Int
+  additionalInfo String
+  Boat Boats [not null]
+}
+
+Table Cement {
+  id String [pk]
+  boatId String [unique, not null]
+  quantitySupplied Int
+  remainingQuantity Int
+  manifested Boolean
+  additionalInfo String
+  Boat Boats [not null]
+}
+
+Table BlendedCement {
+  id String [pk]
+  boatId String [unique, not null]
+  quantitySupplied Int
+  remainingQuantity Int
+  manifested Boolean
+  additionalInfo String
+  Boat Boats [not null]
+}
+
+Table Safra {
+  id String [pk]
+  boatId String [unique, not null]
+  quantitySupplied Int
+  remainingQuantity Int
+  manifested Boolean
+  additionalInfo String
+  Boat Boats [not null]
+}
+
+Table Diesel {
+  id String [pk]
+  boatId String [unique, not null]
+  quantitySupplied Int
+  remainingQuantity Int
+  manifested Boolean
+  additionalInfo String
+  Boat Boats [not null]
+}
+
+Table FreshWater {
+  id String [pk]
+  boatId String [unique, not null]
+  quantitySupplied Float
+  remainingQuantity Float
+  manifested Boolean
+  additionalInfo String
+  Boat Boats [not null]
+}
+
+Table WBM {
+  id String [pk]
+  boatId String [unique, not null]
+  quantitySupplied Int
+  remainingQuantity Int
+  manifested Boolean
+  additionalInfo String
+  Boat Boats [not null]
+}
+
+Table Brine {
+  id String [pk]
+  boatId String [unique, not null]
+  quantitySupplied Int
+  remainingQuantity Int
+  manifested Boolean
+  additionalInfo String
+  Boat Boats [not null]
+}
+
+Enum BOAT_CATEGORY {
+  A
+  B
+  C
+  D
+}
+
+Ref: Boats.captainId > Captains.id
+
+Ref: OBM.boatId - Boats.id [delete: Cascade]
+
+Ref: Cement.boatId - Boats.id [delete: Cascade]
+
+Ref: BlendedCement.boatId - Boats.id [delete: Cascade]
+
+Ref: Safra.boatId - Boats.id [delete: Cascade]
+
+Ref: Diesel.boatId - Boats.id [delete: Cascade]
+
+Ref: FreshWater.boatId - Boats.id [delete: Cascade]
+
+Ref: WBM.boatId - Boats.id [delete: Cascade]
+
+Ref: Brine.boatId - Boats.id [delete: Cascade]

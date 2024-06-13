@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+model Admins {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  fullName  String
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Captains {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  fullName  String
+  phone     String
+  email     String   @unique
+  password  String
+  city      String
+  country   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Boat      Boats[]
+}
+
+model Boats {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  number          String
+  category        BOAT_CATEGORY
+  captainId       String?        @db.ObjectId
+  currentLocation String
+  nextLocation    String
+  operationType   String
+  arrivalTime     DateTime
+  departureTime   DateTime
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  Captain         Captains?      @relation(fields: [captainId], references: [id])
+  OBM             OBM?
+  Cement          Cement?
+  BlendedCement   BlendedCement?
+  Safra           Safra?
+  FreshWater      FreshWater?
+  WBM             WBM?
+  Brine           Brine?
+  Diesel          Diesel?
+}
+
+model OBM {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  boatId            String   @unique @db.ObjectId
+  opearionType      String?
+  manifested        Boolean?
+  quantitySupplied  Int?
+  remainingQuantity Int?
+  additionalInfo    String?
+  Boat              Boats    @relation(fields: [boatId], references: [id], onDelete: Cascade)
+}
+
+model Cement {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  boatId            String   @unique @db.ObjectId
+  quantitySupplied  Int?
+  remainingQuantity Int?
+  manifested        Boolean?
+  additionalInfo    String?
+  Boat              Boats    @relation(fields: [boatId], references: [id], onDelete: Cascade)
+}
+
+model BlendedCement {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  boatId            String   @unique @db.ObjectId
+  quantitySupplied  Int?
+  remainingQuantity Int?
+  manifested        Boolean?
+  additionalInfo    String?
+  Boat              Boats    @relation(fields: [boatId], references: [id], onDelete: Cascade)
+}
+
+model Safra {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  boatId            String   @unique @db.ObjectId
+  quantitySupplied  Int?
+  remainingQuantity Int?
+  manifested        Boolean?
+  additionalInfo    String?
+  Boat              Boats    @relation(fields: [boatId], references: [id], onDelete: Cascade)
+}
+
+model Diesel {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  boatId            String   @unique @db.ObjectId
+  quantitySupplied  Int?
+  remainingQuantity Int?
+  manifested        Boolean?
+  additionalInfo    String?
+  Boat              Boats    @relation(fields: [boatId], references: [id], onDelete: Cascade)
+}
+
+model FreshWater {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  boatId            String   @unique @db.ObjectId
+  quantitySupplied  Float?
+  remainingQuantity Float?
+  manifested        Boolean?
+  additionalInfo    String?
+  Boat              Boats    @relation(fields: [boatId], references: [id], onDelete: Cascade)
+}
+
+model WBM {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  boatId            String   @unique @db.ObjectId
+  quantitySupplied  Int?
+  remainingQuantity Int?
+  manifested        Boolean?
+  additionalInfo    String?
+  Boat              Boats    @relation(fields: [boatId], references: [id], onDelete: Cascade)
+}
+
+model Brine {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  boatId            String   @unique @db.ObjectId
+  quantitySupplied  Int?
+  remainingQuantity Int?
+  manifested        Boolean?
+  additionalInfo    String?
+  Boat              Boats    @relation(fields: [boatId], references: [id], onDelete: Cascade)
+}
+
+enum BOAT_CATEGORY {
+  A
+  B
+  C
+  D
+}
