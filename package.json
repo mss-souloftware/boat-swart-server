@@ -2,10 +2,10 @@
   "name": "ts",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
     "start:dev": "nodemon src/server.ts",
-    "start:prod": "set NODE_ENV=prod&& nodemon src/server.ts"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
