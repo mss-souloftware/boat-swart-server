@@ -11,6 +11,7 @@ app.use(express.json({ limit: '100mb' }))
 app.use(cors())
 app.use(reqResInspector())
 
+app.use('/test', (req: any, res: any) => res.send('hi'))
 app.use('/api/v1', apiRoutes)
 
 export default app
