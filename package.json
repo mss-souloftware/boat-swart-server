@@ -4,7 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "tcs",
     "start:dev": "nodemon src/server.ts",
     "start:prod": "set NODE_ENV=prod&& nodemon src/server.ts"
   },
